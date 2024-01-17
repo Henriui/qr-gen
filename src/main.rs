@@ -33,6 +33,10 @@ fn qr_generate(args: Vec<String>) {
         // Test that image has been created.
 
         println!("QR code saved as {}", filename);
+    } else if args.len() >= 3 && args[2] != "--png" {
+        // If unknown argument given, panic.
+
+        panic!("Unknown argument {}.", args[2]);
     } else {
         // Print QR code to terminal.
 
@@ -89,6 +93,18 @@ mod tests {
         let _remove: std::io::Result<()> = std::fs::remove_file(
             "1dfa29c04079750c4cf18257391164ae9626c5fc92f541e6ed6f4bc7e8355e9f.png",
         );
+    }
+
+    // Test that QR code is not generated with unknown argument.
+    #[test]
+    #[should_panic = "Unknown argument --test."]
+    fn test_qr_generate_unknown_argument() {
+        let args = vec![
+            "qr_test".to_string(),
+            "https://www.hofler.fi/fi/hofler-cowhide-primaloft.html".to_string(),
+            "--test".to_string(),
+        ];
+        super::qr_generate(args);
     }
 
     // Test that QR code is not generated without input.
