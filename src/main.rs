@@ -42,8 +42,8 @@ fn qr_generate(args: Vec<String>) {
 
         let qr_string = code
             .render()
-            .dark_color('■')
-            .light_color(' ')
+            .dark_color('⬜')
+            .light_color('⬛')
             .quiet_zone(false)
             .build();
 
